@@ -5,4 +5,4 @@ export default {
   component: Card,
 }
 
-export const defaultCard = () => Card('Harry Potter')
+export const defaultCard = () => Card('Harry Potter', 'male')
