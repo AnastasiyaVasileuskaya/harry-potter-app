@@ -6,4 +6,4 @@ export default {
   component: Navigation,
 }
 
-export const base = () => Navigation(action('onNavigate'))
+export const base = () => Navigation(action('onNavigate')).el
