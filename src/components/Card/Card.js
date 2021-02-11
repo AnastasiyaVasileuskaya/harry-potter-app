@@ -1,11 +1,36 @@
 import createElement from '../../lib/createElement'
 import './Card.css'
 
-export default function Card(name, gender) {
-  const nameEl = createElement('h2', { innerText: name })
-  const genderEl = createElement('p', { innerText: gender })
+export default function Card({ name, house, image }) {
+  const color = getColorByHouse(house)
 
-  const el = createElement('section', { className: 'Card' }, nameEl, genderEl)
+  const heading = createElement('h2', { className: 'Card__heading' }, name)
+  const houseEl = createElement(
+    'span',
+    { className: 'Card__house', style: `color: ${color}` },
+    house
+  )
+  const imageEl = createElement('img', {
+    className: 'Card__image',
+    src: image,
+    alt: '',
+  })
 
-  return el
+  return createElement(
+    'section',
+    { className: 'Card' },
+    heading,
+    houseEl,
+    imageEl
+  )
+}
+
+function getColorByHouse(house) {
+  const ColorMapp = {
+    Gryffindor: 'crimson',
+    Hufflepuff: 'goldenrod',
+    Ravenclaw: 'cornflowerblue',
+    Slytherin: 'forestgreen',
+  }
+  return ColorMapp[house]
 }
