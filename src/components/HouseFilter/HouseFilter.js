@@ -5,14 +5,19 @@ import createElement from '../../lib/createElement'
 export default function HouseFilter(onFilterByHouse) {
   const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
 
-  const buttons = houses.map(house => {
+  let currentFilter
+
+  const buttons = houses.map(house => createButtons(house))
+
+  function createButtons(house) {
     const button = Button(house, () => {
-      onFilterByHouse(house)
-      button.toggle()
+      currentFilter = currentFilter === house ? null : house
+      onFilterByHouse(currentFilter)
+      buttons.forEach(button => button.toggle(button.text === currentFilter))
     })
 
     return button
-  })
+  }
 
   return createElement('section', { className: 'HouseFilter' }, ...buttons)
 }
