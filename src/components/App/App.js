@@ -4,11 +4,13 @@ import AppHeader from '../AppHeader'
 import Card from '../Card'
 import GenderFilter from '../GenderFilter'
 import HouseFilter from '../HouseFilter'
+import SearchBar from '../SearchBar/SearchBar'
 import './App.css'
 export default function App() {
   const header = AppHeader('Harry Potter App')
   const houseFilter = HouseFilter(onFilterByHouse)
   const genderFilter = GenderFilter(onFilterByGender)
+  const searchBar = SearchBar(onSearch)
   const cardContainer = createElement('div')
 
   const app = createElement(
@@ -17,6 +19,7 @@ export default function App() {
     header,
     houseFilter,
     genderFilter,
+    searchBar,
     cardContainer
   )
   let characters
@@ -26,6 +29,13 @@ export default function App() {
       characters = data
     })
     .catch(error => handleGetCharacterError(error))
+
+  function onSearch(searchString) {
+    const filteredCharacters = characters.filter(character =>
+      character.name.includes(searchString)
+    )
+    createCards(filteredCharacters)
+  }
   function onFilterByHouse(house) {
     const filteredCharacters = characters.filter(
       character => house == null || character.house === house
