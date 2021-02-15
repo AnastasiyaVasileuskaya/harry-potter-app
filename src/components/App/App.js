@@ -22,7 +22,9 @@ export default function App() {
     searchBar,
     cardContainer
   )
+
   let characters
+
   getCharacters()
     .then(data => {
       createCards(data)
@@ -36,23 +38,27 @@ export default function App() {
     )
     createCards(filteredCharacters)
   }
+
   function onFilterByHouse(house) {
     const filteredCharacters = characters.filter(
       character => house == null || character.house === house
     )
     createCards(filteredCharacters)
   }
+
   function onFilterByGender(gender) {
     const filteredCharacters = characters.filter(
       character => gender == null || character.gender === gender
     )
     createCards(filteredCharacters)
   }
+
   function createCards(characters) {
     const cards = characters.map(character => Card(character))
     cardContainer.innerHTML = ''
     cardContainer.append(...cards)
   }
+
   function handleGetCharacterError(error) {
     const errorMessage = createElement(
       'strong',
